@@ -1,6 +1,6 @@
 # Учебыный проект «Кекстаграм»
 
-![](/Users/bbeggar/Desktop/kekstagramm/preview.jpg)
+![](/preview.jpg)
 
 ## Техническое задание
 
