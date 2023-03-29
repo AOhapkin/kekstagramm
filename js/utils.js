@@ -10,3 +10,5 @@ function getRandomPositiveInt(a, b) {
 function checkStringLength(string, maxLength) {
     return string.length <= maxLength;
 }
+
+export {getRandomPositiveInt, checkStringLength}
