@@ -1,3 +1,6 @@
 import {generateRandomDataItem} from "./generatedData.js";
+import {renderPictures} from "./render-pictures.js";
 
-console.log(Array.from({length: 25}, generateRandomDataItem))
+const generatedData = Array.from({length: 25}, generateRandomDataItem);
+
+renderPictures(generatedData);
