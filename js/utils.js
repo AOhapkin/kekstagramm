@@ -11,4 +11,8 @@ function checkStringLength(string, maxLength) {
     return string.length <= maxLength;
 }
 
-export {getRandomPositiveInt, checkStringLength}
+function isEscEvent(event) {
+    return event.key === 'Escape' || event.keyCode === 27;
+}
+
+export {getRandomPositiveInt, checkStringLength, isEscEvent}

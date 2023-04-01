@@ -1,3 +1,5 @@
+import {isEscEvent} from "./utils.js";
+
 const bigPicture = document.querySelector('.big-picture');
 const image = bigPicture.querySelector('img');
 const imageCaption = bigPicture.querySelector('.social__caption');
@@ -66,11 +68,18 @@ function onCloseButtonClick() {
     closeBigPicture();
 }
 
+function onDocumentKeydown(event) {
+    if (isEscEvent(event)) {
+        closeBigPicture();
+    }
+}
+
 function showBigPicture(pictureData) {
 
     bigPicture.classList.remove('hidden');
     document.body.classList.add('modal-open');
     closeButton.addEventListener('click', onCloseButtonClick);
+    document.addEventListener('keydown', onDocumentKeydown);
 
     renderBigPicture(pictureData);
 }
