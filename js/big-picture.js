@@ -37,6 +37,7 @@ function showComments() {
         fragment.append(createComment(comment));
     });
     commentsList.append(fragment);
+
 }
 
 function renderBigPicture(data) {
@@ -52,7 +53,10 @@ function renderBigPicture(data) {
     if (comments.length > 0) {
         showComments();
     }
-    // setCommentCounter();
+
+    //временно
+    commentsCounterBlock.classList.add('hidden');
+    setCommentCounter();
 }
 
 function showBigPicture(pictureData) {
