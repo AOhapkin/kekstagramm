@@ -5,7 +5,10 @@ const likesCount = bigPicture.querySelector('.likes-count');
 const commentsCounterBlock = bigPicture.querySelector('.social__comment-count');
 const commentsTotalCount = bigPicture.querySelector('.comments-count');
 const commentsList = bigPicture.querySelector('.social__comments');
-const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
+const commentTemplate = document.querySelector('#comment')
+    .content
+    .querySelector('.social__comment');
+const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
 let comments = [];
 const MIN_COMMENTS_NUMBER = 5;
@@ -59,12 +62,23 @@ function renderBigPicture(data) {
     setCommentCounter();
 }
 
+function onCloseButtonClick() {
+    closeBigPicture();
+}
+
 function showBigPicture(pictureData) {
 
     bigPicture.classList.remove('hidden');
     document.body.classList.add('modal-open');
+    closeButton.addEventListener('click', onCloseButtonClick);
 
     renderBigPicture(pictureData);
+}
+
+function closeBigPicture() {
+    bigPicture.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+    closeButton.removeEventListener('click', onCloseButtonClick);
 }
 
 export {showBigPicture}
