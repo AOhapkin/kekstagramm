@@ -46,8 +46,6 @@ function showComments() {
 }
 
 function renderBigPicture(data) {
-    // console.log(data);
-
     image.src = data.url
     image.alt = data.description;
     imageCaption.textContent = data.description;
@@ -75,6 +73,7 @@ function onDocumentKeydown(event) {
 }
 
 function showBigPicture(pictureData) {
+    console.log(pictureData);
 
     bigPicture.classList.remove('hidden');
     document.body.classList.add('modal-open');
