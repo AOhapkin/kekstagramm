@@ -59,6 +59,7 @@ function renderBigPicture(data) {
 
     //временно
     commentsCounterBlock.classList.add('hidden');
+    bigPicture.querySelector('.social__comments-loader').classList.add('hidden');
     setCommentCounter();
 }
 
