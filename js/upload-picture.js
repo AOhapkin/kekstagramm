@@ -12,6 +12,8 @@ function showImageEditor() {
   document.body.classList.add('modal-open');
   editorCloseButton.addEventListener('click', onEditorCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
+  hashtagsInput.addEventListener('submit', onHashtagsInput);
+  descriptionInput.addEventListener('submit', onDescriptionInput);
 }
 
 function hideImageEditor() {
@@ -23,6 +25,8 @@ function hideImageEditor() {
   hashtagsInput.value = '';
   descriptionInput.value = '';
   uploadForm.reset();
+  hashtagsInput.removeEventListener('submit', onHashtagsInput);
+  descriptionInput.removeEventListener('submit', onDescriptionInput);
 }
 
 function onEditorCloseButtonClick() {
@@ -44,3 +48,4 @@ function onDocumentKeydown(evt) {
 }
 
 uploadInput.addEventListener('change', onUploadInputChange);
+showImageEditor();
