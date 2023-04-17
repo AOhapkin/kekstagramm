@@ -1,4 +1,4 @@
-import {hasDuplicates} from "./utils.js";
+import {hasDuplicates} from './utils.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const tagsInput = uploadForm.querySelector('.text__hashtags');
