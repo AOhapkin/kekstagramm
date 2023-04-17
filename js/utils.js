@@ -15,4 +15,8 @@ function isEscEvent(event) {
   return event.key === 'Escape' || event.keyCode === 27;
 }
 
-export {getRandomPositiveInt, isEscEvent};
+function hasDuplicates(array) {
+  return (new Set(array)).size !== array.length;
+}
+
+export {getRandomPositiveInt, isEscEvent, hasDuplicates};
