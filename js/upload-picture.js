@@ -1,5 +1,6 @@
 import {isEscEvent} from './utils.js';
-import {onHashtagsInput} from "./text-validation.js";
+import {onHashtagsInput} from './hashtag-validation.js';
+import {onDescriptionInput} from './text-validation.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
@@ -14,7 +15,7 @@ function showImageEditor() {
   editorCloseButton.addEventListener('click', onEditorCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   hashtagsInput.addEventListener('input', onHashtagsInput);
-  // descriptionInput.addEventListener('submit', onDescriptionInput);
+  descriptionInput.addEventListener('input', onDescriptionInput);
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     // console.log('submit');
@@ -30,8 +31,8 @@ function hideImageEditor() {
   hashtagsInput.value = '';
   descriptionInput.value = '';
   uploadForm.reset();
-  hashtagsInput.removeEventListener('submit', onHashtagsInput);
-  // descriptionInput.removeEventListener('submit', onDescriptionInput);
+  hashtagsInput.removeEventListener('input', onHashtagsInput);
+  descriptionInput.removeEventListener('input', onDescriptionInput);
 }
 
 function onEditorCloseButtonClick() {

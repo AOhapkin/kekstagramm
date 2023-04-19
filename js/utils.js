@@ -7,9 +7,9 @@ function getRandomPositiveInt(a, b) {
   return Math.floor(randomResult);
 }
 
-// function checkStringLength(string, maxLength) {
-//   return string.length <= maxLength;
-// }
+function checkStringLength(string, maxLength) {
+  return string.length <= maxLength;
+}
 
 function isEscEvent(event) {
   return event.key === 'Escape' || event.keyCode === 27;
@@ -19,4 +19,4 @@ function hasDuplicates(array) {
   return (new Set(array)).size !== array.length;
 }
 
-export {getRandomPositiveInt, isEscEvent, hasDuplicates};
+export {getRandomPositiveInt, isEscEvent, hasDuplicates, checkStringLength};
