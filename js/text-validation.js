@@ -2,7 +2,7 @@ import {hasDuplicates} from './utils.js';
 
 const MAX_TAGS_NUMBER = 5; // максимальное количество тегов
 const MAX_TAG_LENGTH = 20; // максимальная длина одного тега
-const hashtagPattern = /^#[a-zA-Zа-яА-Я0-9]{1,19}$/;
+const hashtagPattern = /^#[a-zA-Zа-яА-Я0-9]+$/;
 const uploadForm = document.querySelector('.img-upload__form');
 const tagsInput = uploadForm.querySelector('.text__hashtags');
 
@@ -37,12 +37,28 @@ function validateTags(tags) {
   return null;
 }
 
+function checkSpaces(inputString) {
+  for (let i = 1; i < inputString.length; i++) {
+    if (inputString[i] === ' ' || inputString === '#') {
+      if (inputString[i - 1] !== ' ') {
+        return 'Хэш-теги разделяются только пробелами';
+      }
+    }
+  }
+}
+
 function onHashtagsInput() {
-  if (tagsInput.value.length === 0) {
+  const inputString = tagsInput.value;
+  let errorText = '';
+  if (inputString.length === 0) {
     return;
   }
-  const tagsArray = tagsInput.value.trim().split(' ').map((tag) => tag.toLowerCase());
-  const errorText = validateTags(tagsArray);
+  if (!checkSpaces(inputString)) {
+    errorText = 'Хэш-теги разделяются только пробелами';
+  } else {
+    const tagsArray = inputString.trim().split(' ').filter((item) => item.length > 0).map((tag) => tag.toLowerCase());
+    errorText = validateTags(tagsArray);
+  }
   if (errorText) {
     tagsInput.setCustomValidity(errorText);
   } else {
