@@ -1,4 +1,4 @@
-import {getRandomPositiveInt} from './utils.js';
+import { getRandomPositiveInt } from './utils.js';
 
 const COMMENTS = [
   'Всё отлично!',
@@ -32,8 +32,8 @@ function generateRandomDataItem() {
     url: `photos/${getRandomPositiveInt(1, 25)}.jpg`,
     description: 'Случайное описание фотографии',
     likes: getRandomPositiveInt(15, 200),
-    comments: Array.from({length: getRandomPositiveInt(0, 5)}, generateRandomCommentsItem),
+    comments: Array.from({ length: getRandomPositiveInt(0, 15) }, generateRandomCommentsItem),
   };
 }
 
-export {generateRandomDataItem};
+export { generateRandomDataItem };
