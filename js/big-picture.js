@@ -15,7 +15,7 @@ const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
 let comments = [];
 const MIN_COMMENTS_NUMBER = 5;
-const maxCommentsOnDisplay = MIN_COMMENTS_NUMBER;
+let maxCommentsOnDisplay = MIN_COMMENTS_NUMBER;
 
 function clearComments() {
   commentsList.innerHTML = '';
@@ -39,7 +39,6 @@ function createComment(commentData) {
 
 function onCommentsAddButtonClick() {
   maxCommentsOnDisplay += MIN_COMMENTS_NUMBER;
-  clearComments();
   createComments();
   setCommentCounter();
 }
@@ -51,6 +50,7 @@ function createComments() {
     fragment.append(createComment(comment));
   });
   commentsList.append(fragment);
+
   if (comments.length < MIN_COMMENTS_NUMBER) {
     commentsAddButton.classList.add('hidden');
   } else {
@@ -63,13 +63,14 @@ function createComments() {
 }
 
 function renderBigPicture(data) {
+  console.log(data);
   image.src = data.url;
   image.alt = data.description;
   imageCaption.textContent = data.description;
   likesCount.textContent = data.likes;
   commentsTotalCount.textContent = `${data.comments.length}`;
   comments = data.comments;
-  // clearComments();
+
   if (comments.length > 0) {
     createComments();
   }
