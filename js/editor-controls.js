@@ -1,0 +1,7 @@
+
+
+function setScaleControls() {
+
+}
+
+export { setScaleControls }
