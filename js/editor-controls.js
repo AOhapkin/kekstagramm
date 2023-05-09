@@ -34,4 +34,12 @@ function setScaleControls() {
 	scaleButtonDown.addEventListener('click', onScaleButtonDownClick);
 }
 
-export { setScaleControls }
+function resetScaleControls() {
+	currentScale = SCALE_DEFAULT;
+	scaleInput.value = currentScale + '%';
+	imagePreview.style.transform = `scale(${currentScale / SCALE_MAX})`;
+	scaleButtonUp.removeEventListener('click', onScaleButtonUpClick);
+	scaleButtonDown.removeEventListener('click', onScaleButtonDownClick);
+}
+
+export { setScaleControls, resetScaleControls }

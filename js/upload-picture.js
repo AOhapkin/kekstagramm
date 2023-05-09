@@ -1,7 +1,7 @@
 import { isEscEvent } from './utils.js';
 import { onHashtagsInput } from './hashtag-validation.js';
 import { onDescriptionInput } from './text-validation.js';
-import { setScaleControls } from './editor-controls.js';
+import { setScaleControls, resetScaleControls } from './editor-controls.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
@@ -32,6 +32,7 @@ function hideImageEditor() {
   uploadForm.reset();
   hashtagsInput.removeEventListener('input', onHashtagsInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
+  resetScaleControls();
 }
 
 function onEditorCloseButtonClick() {
