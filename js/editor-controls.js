@@ -1,7 +1,10 @@
+import { EffectsData } from "./effects-data";
+
 const SCALE_DEFAULT = 100;
 const SCALE_STEP = 25;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
+const PREVIEW_DEFAULT_CLASS = 'img-upload__preview';
 
 const editor = document.querySelector('.img-upload__overlay');
 const scaleButtonUp = editor.querySelector('.scale__control--bigger');
@@ -9,8 +12,14 @@ const scaleButtonDown = editor.querySelector('.scale__control--smaller');
 const scaleInput = editor.querySelector('.scale__control--value');
 const uploadForm = document.querySelector('.img-upload__form');
 const imagePreview = uploadForm.querySelector('.img-upload__preview img');
+const effectsList = uploadForm.querySelector('.effects__list');
+const sliderBlock = uploadForm.querySelector('.img-upload__effect-level');
+const effectLevelInput = uploadForm.querySelector('.effect-level__value');
+const slider = uploadForm.querySelector('.effect-level__slider');
 
 let currentScale = SCALE_DEFAULT;
+
+// SCALE CONTROLS
 
 function onScaleButtonUpClick() {
 	if (currentScale < SCALE_MAX) {
@@ -42,4 +51,70 @@ function resetScaleControls() {
 	scaleButtonDown.removeEventListener('click', onScaleButtonDownClick);
 }
 
-export { setScaleControls, resetScaleControls }
+// EFFECTS SLIDER
+
+function removeSlider() {
+	slider.noUiSlider.destroy();
+	imagePreview.style.filter = '';
+	imagePreview.className = PREVIEW_DEFAULT_CLASS;
+	effectLevelInput.value = '';
+}
+
+function setEffect(evt) {
+	currentEffect = EffectsData[evt.target.value];
+	imagePreview.className = PREVIEW_DEFAULT_CLASS;
+
+	if (!currentEffect) {
+		effectLevelInput.value = '';
+		sliderBlock.classList.add('hidden');
+	} else {
+		sliderBlock.classList.remove('hidden');
+		imagePreview.classList.add(currentEffect.class);
+
+		slider.noUiSlider.updateOptions({
+			range: {
+				min: currentEffect.min,
+				max: currentEffect.max,
+			},
+			start: currentEffect.start,
+			step: currentEffect.step,
+		});
+		getSliderValue(currentEffect.filter, currentScale.units);
+	}
+}
+
+function clearEffect() {
+	preview.className = PREVIEW_DEFAULT_CLASS;
+}
+
+function onEffectsListChange(evt) {
+	clearEffect();
+	setEffect(evt);
+}
+
+function setSlider() {
+	noUiSlider.create(slider, {
+		range: {
+			min: 0,
+			max: 100,
+		},
+		start: 100,
+		step: 1,
+		connect: 'lower',
+		format: {
+			to: function (value) {
+				if (Number.isInteger(value)) {
+					return value.toFixed(0);
+				}
+				return value.toFixed(1);
+			},
+			from: function (value) {
+				return parseFloat(value);
+			},
+		},
+	});
+	sliderBlock.classList.add('hidden');
+	effectsList.addEventListener('change', onEffectsListChange);
+}
+
+export { setScaleControls, resetScaleControls, setSlider, removeSlider }
