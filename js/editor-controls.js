@@ -1,4 +1,4 @@
-import { EffectsData } from "./effects-data";
+import { EffectsData } from "./effects-data.js";
 
 const SCALE_DEFAULT = 100;
 const SCALE_STEP = 25;
@@ -18,6 +18,7 @@ const effectLevelInput = uploadForm.querySelector('.effect-level__value');
 const slider = uploadForm.querySelector('.effect-level__slider');
 
 let currentScale = SCALE_DEFAULT;
+let currentEffect = '';
 
 // SCALE CONTROLS
 
@@ -51,13 +52,26 @@ function resetScaleControls() {
 	scaleButtonDown.removeEventListener('click', onScaleButtonDownClick);
 }
 
-// EFFECTS SLIDER
+// SLIDER
+
+/* global noUiSlider:readonly */
 
 function removeSlider() {
 	slider.noUiSlider.destroy();
 	imagePreview.style.filter = '';
 	imagePreview.className = PREVIEW_DEFAULT_CLASS;
 	effectLevelInput.value = '';
+}
+
+function getSliderValue(filter, units) {
+	slider.noUiSlider.on('update', (values, handle) => {
+		effectLevelInput.value = values[handle];
+		if (units) {
+			imagePreview.style.filter = `${filter}(${effectLevelInput.value}${units})`;
+		} else {
+			imagePreview.style.filter = `${filter}(${effectLevelInput.value})`;
+		}
+	});
 }
 
 function setEffect(evt) {
@@ -79,12 +93,12 @@ function setEffect(evt) {
 			start: currentEffect.start,
 			step: currentEffect.step,
 		});
-		getSliderValue(currentEffect.filter, currentScale.units);
+		getSliderValue(currentEffect.filter, currentEffect.units);
 	}
 }
 
 function clearEffect() {
-	preview.className = PREVIEW_DEFAULT_CLASS;
+	imagePreview.className = PREVIEW_DEFAULT_CLASS;
 }
 
 function onEffectsListChange(evt) {
@@ -113,6 +127,7 @@ function setSlider() {
 			},
 		},
 	});
+
 	sliderBlock.classList.add('hidden');
 	effectsList.addEventListener('change', onEffectsListChange);
 }
