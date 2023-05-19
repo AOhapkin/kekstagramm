@@ -76,11 +76,11 @@ function getSliderValue(filter, units) {
 
 function setEffect(evt) {
 	currentEffect = EffectsData[evt.target.value];
-	imagePreview.className = PREVIEW_DEFAULT_CLASS;
 
 	if (!currentEffect) {
 		effectLevelInput.value = '';
 		sliderBlock.classList.add('hidden');
+		imagePreview.style.filter = '';
 	} else {
 		sliderBlock.classList.remove('hidden');
 		imagePreview.classList.add(currentEffect.class);
