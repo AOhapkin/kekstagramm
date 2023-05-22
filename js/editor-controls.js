@@ -80,7 +80,6 @@ function setEffect(evt) {
 	if (!currentEffect) {
 		effectLevelInput.value = '';
 		sliderBlock.classList.add('hidden');
-		imagePreview.style.filter = '';
 	} else {
 		sliderBlock.classList.remove('hidden');
 		imagePreview.classList.add(currentEffect.class);
@@ -99,6 +98,7 @@ function setEffect(evt) {
 
 function clearEffect() {
 	imagePreview.className = PREVIEW_DEFAULT_CLASS;
+	imagePreview.style.filter = '';
 }
 
 function onEffectsListChange(evt) {
