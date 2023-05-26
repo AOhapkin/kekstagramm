@@ -1,11 +1,21 @@
-import {showBigPicture} from './big-picture.js';
+/* global _:readonly */
+import { showBigPicture } from './big-picture.js';
+import { setFilterDefault, setFilterRandom, setFilterDiscussed } from './filter-pictures.js';
+import { findElementById } from './utils.js';
 
-function findElementById(id, array) {
-  return array.find((element) => element.id === +id);
-}
+const FILTER_BUTTON_CLASS = 'img-filters__button';
+const FILTERS_BUTTON_ACTIVE_CLASS = 'img-filters__button--active';
+const FILTERS = {
+  'filter-default': setFilterDefault,
+  'filter-random': setFilterRandom,
+  'filter-discussed': setFilterDiscussed,
+};
+const picturesContainer = document.querySelector('.pictures');
+const filtersSection = document.querySelector('.img-filters');
+const filtersButtons = filtersSection.querySelectorAll('.img-filters__button');
+const RENDER_TIME_OUT = 500;
 
 function renderPictures(data) {
-  const picturesContainer = document.querySelector('.pictures');
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const picturesFragment = document.createDocumentFragment();
 
@@ -27,4 +37,30 @@ function renderPictures(data) {
   });
 }
 
-export {renderPictures};
+function deletePictures() {
+  let pictures = picturesContainer.querySelectorAll('.picture');
+  pictures.forEach((pic) => {
+    picturesContainer.removeChild(pic);
+  });
+}
+
+function onFiltersSectionClick(evt, pictures) {
+  const clickTarget = evt.target;
+
+  if (clickTarget.classList.contains(FILTER_BUTTON_CLASS) && !clickTarget.classList.contains(FILTERS_BUTTON_ACTIVE_CLASS)) {
+    filtersButtons.forEach((button) => button.classList.remove(FILTERS_BUTTON_ACTIVE_CLASS));
+    clickTarget.classList.add(FILTERS_BUTTON_ACTIVE_CLASS);
+    deletePictures();
+    renderPictures(FILTERS[clickTarget.id](pictures))
+  }
+}
+
+function showFiltersSection() {
+  filtersSection.classList.remove('img-filters--inactive');
+}
+
+function showFilteredPictures(pictures) {
+  filtersSection.addEventListener('click', _.debounce((evt) => onFiltersSectionClick(evt, pictures), RENDER_TIME_OUT));
+}
+
+export { renderPictures, showFiltersSection, showFilteredPictures };

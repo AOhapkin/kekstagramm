@@ -19,4 +19,8 @@ function hasDuplicates(array) {
   return (new Set(array)).size !== array.length;
 }
 
-export {getRandomPositiveInt, isEscEvent, hasDuplicates, checkStringLength};
+function findElementById(id, array) {
+  return array.find((element) => element.id === +id);
+}
+
+export { getRandomPositiveInt, isEscEvent, hasDuplicates, checkStringLength, findElementById };
