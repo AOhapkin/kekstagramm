@@ -1,5 +1,5 @@
 const MESSAGE_TIME = 4000;
-const ERROR_MESSAGE = 'Не удалось получить данные. Попробуйте позже.';
+const ERROR_MESSAGE = 'Ошибка подключения к серверу. Приложение переходит в демо-режим.';
 
 function getRandomPositiveInt(a, b) {
   const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
