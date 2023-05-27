@@ -56,4 +56,3 @@ function onDocumentKeydown(evt) {
 }
 
 uploadInput.addEventListener('change', onUploadInputChange);
-showImageEditor(); //временно

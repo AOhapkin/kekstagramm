@@ -1,4 +1,4 @@
-const API_URL = '';
+const API_URL = 'https://25.javascript.pages.academy/kekstagram';
 
 function getData(onSuccess, onError) {
 	return fetch(`${API_URL}/data`)
@@ -12,3 +12,5 @@ function getData(onSuccess, onError) {
 }
 
 // function sendData(onSuccess, onError, data)
+
+export { getData }
