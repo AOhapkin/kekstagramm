@@ -11,6 +11,22 @@ function getData(onSuccess, onError) {
 		});
 }
 
-// function sendData(onSuccess, onError, data)
+function sendData(onSuccess, onError, data) {
+	fetch(
+		API_URL,
+		{
+			method: 'POST',
+			body: data,
+		},
+	).then((response) => {
+		if (response.ok) {
+			onSuccess();
+		} else {
+			onError();
+		}
+	}).catch(() => {
+		onError();
+	});
+}
 
-export { getData }
+export { getData, sendData }

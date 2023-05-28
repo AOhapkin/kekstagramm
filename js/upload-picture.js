@@ -2,6 +2,7 @@ import { isEscEvent } from './utils.js';
 import { onHashtagsInput } from './hashtag-validation.js';
 import { onDescriptionInput } from './text-validation.js';
 import { setScaleControls, resetScaleControls, setSlider, removeSlider } from './editor-controls.js';
+import { sendData } from './api.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
@@ -56,3 +57,23 @@ function onDocumentKeydown(evt) {
 }
 
 uploadInput.addEventListener('change', onUploadInputChange);
+
+function onDataSendSuccess() {
+  console.log('data send ok');
+  // showUploadSuccessMessage();
+}
+
+function onDataSendFail() {
+  console.log('data dend bad');
+  // showUploadErrorMessage();
+}
+
+uploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  sendData(
+    onDataSendSuccess,
+    onDataSendFail,
+    new FormData(evt.target)
+  );
+  hideImageEditor();
+});
