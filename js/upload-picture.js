@@ -3,6 +3,7 @@ import { onHashtagsInput } from './hashtag-validation.js';
 import { onDescriptionInput } from './text-validation.js';
 import { setScaleControls, resetScaleControls, setSlider, removeSlider } from './editor-controls.js';
 import { sendData } from './api.js';
+import { showUploadSuccessMessage } from './upload-messages.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
@@ -60,7 +61,7 @@ uploadInput.addEventListener('change', onUploadInputChange);
 
 function onDataSendSuccess() {
   console.log('data send ok');
-  // showUploadSuccessMessage();
+  showUploadSuccessMessage();
 }
 
 function onDataSendFail() {
