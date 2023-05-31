@@ -41,4 +41,37 @@ function showUploadSuccessMessage() {
 	main.addEventListener('click', onDocumentClick);
 }
 
-export { showUploadSuccessMessage }
+function showUploadErrorMessage() {
+	const errorMessage = errorMessageTemplate.cloneNode(true);
+	main.appendChild(errorMessage);
+	const errorButton = errorMessage.querySelector('.error__button');
+
+	function onDocumentKeydown(evt) {
+		if (isEscEvent(evt)) {
+			main.removeChild(successMessage);
+			document.removeEventListener('keydown', onDocumentKeydown);
+			successButton.removeEventListener('click', onSuccessButtomClick);
+		}
+	}
+
+	function onErrorButtomClick() {
+		main.removeChild(successMessage);
+		successButton.removeEventListener('click', onSuccessButtomClick);
+		document.removeEventListener('keydown', onDocumentKeydown);
+	}
+
+	function onDocumentClick(evt) {
+		if (evt.target.className !== 'error') {
+			main.removeChild(errorMessage);
+			document.removeEventListener('keydown', onDocumentKeydown);
+			main.removeEventListener('click', onDocumentClick);
+			errorButton.removeEventListener('click', onErrorButtomClick);
+		}
+	}
+
+	errorButton.addEventListener('click', onErrorButtomClick);
+	document.addEventListener('keydown', onDocumentKeydown);
+	main.addEventListener('click', onDocumentClick);
+}
+
+export { showUploadSuccessMessage, showUploadErrorMessage }
