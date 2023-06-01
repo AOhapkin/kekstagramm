@@ -36,7 +36,12 @@ function hideImageEditor() {
   descriptionInput.removeEventListener('input', onDescriptionInput);
   resetScaleControls();
   removeSlider();
-  // resetValid
+  resetTextValidation();
+}
+
+function resetTextValidation() {
+  hashtagsInput.setCustomValidity('');
+  descriptionInput.setCustomValidity('');
 }
 
 function onEditorCloseButtonClick() {
