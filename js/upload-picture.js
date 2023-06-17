@@ -11,6 +11,9 @@ const editor = uploadForm.querySelector('.img-upload__overlay');
 const editorCloseButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const descriptionInput = uploadForm.querySelector('.text__description');
+const imagePreview = uploadForm.querySelector('.img-upload__preview img');
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 function showImageEditor() {
   editor.classList.remove('hidden');
@@ -50,6 +53,16 @@ function onEditorCloseButtonClick() {
 
 function onUploadInputChange() {
   showImageEditor();
+  const file = uploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => {
+    return fileName.endsWith(it);
+  });
+
+  if (matches) {
+    imagePreview.src = URL.createObjectURL(file);
+  }
 }
 
 function onDocumentKeydown(evt) {
